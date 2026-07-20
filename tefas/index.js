@@ -1,0 +1,158 @@
+import {header, Urls} from "./constants.js";
+import { Periods } from "./periods.js";
+
+/**
+ * @class
+ */
+export class Tefas {
+    /**
+     * Initializes the wrapper for the specified fund name
+     * @constructor
+     * @param {string} name Fund Name (Can be upper or lower case)
+     */
+    constructor(name) {
+        if(!name) {
+            throw new Error("TEFAS API Error: Argument 'name' cannot be empty!")
+        }
+
+        this.name = name.toUpperCase()
+    }
+
+    /**
+     * Fetches the historical price data of the fund
+     * @route /api/funds/fonFiyatBilgiGetir
+     * @param {Number} period Can only be weekly (13), YTD(0), 1 month(1), 3 months(3), 6 months(6), 1 year(12), 3 years(36), 5 years(60) <br>
+     * Default to 1 month
+     * 
+     * @returns {JSON} Historical price data as returned by the API
+     */
+    async fetchPrice(period = Periods.ONE_MONTH) {
+        let response = await tefas_fetch(
+            `${Urls.base_url}${Urls.price_url}`,
+            {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify({
+                    "fonKodu": this.name,
+                    "dil": "TR",
+                    "periyod": String(period)
+                })
+            },
+            this.fetchPrice.name
+        )
+
+        return response?.["resultList"]
+    }
+
+    /**
+     * Fetches the type of the fund
+     * @route /api/funds/fonTipiGetir
+     * @returns {String} Fund type as returned by the API. <br>
+     * Possible results: F (For mutual funds), M (For retirement funds) 
+     */
+    async fetchFundType() {
+        let response = await tefas_fetch(
+            `${Urls.base_url}${Urls.type_url}`,
+            {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify({
+                    "fonKodu": this.name
+                })
+            },
+            this.fetchFundType.name
+        )
+
+        return response?.["fonTipi"]
+    }
+
+    /**
+     * Fetches 8 comparisons (ALTIN, BIST100, BIST30, EUR, MEVDUAT FAIZI, SERBEST SEMSIYE FONU, TUFE, USD) 
+     * along with the fund return for the given period
+     * 
+     * @route /api/funds/fonProfilDtyGetir
+     * @param {Number} period - Can only be weekly (13), YTD(0), 1 month(1), 3 months(3), 6 months(6), 1 year(12), 3 years(36), 5 years(60) <br>
+     * Default to 1 year
+     * 
+     * @returns {JSON} An array containing 9 elements
+     */
+    async fetchComparisons(period = Periods.ONE_YEAR) {
+        let response = await tefas_fetch(
+            `${Urls.base_url}${Urls.comparisons_url}`,
+            {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify({
+                    "fonKodu": this.name,
+                    "dil": "TR",
+                    "periyod": String(period)
+                })
+            },
+            this.fetchComparisons.name
+        )
+
+        return response?.["resultList"]
+    }
+
+    /**
+     * Returns the list of all funds on TEFAS
+     * @route /api/statistics/tefas/getFplFonList
+     * @returns {JSON} An array containing all funds with their relative informations
+     */
+    static async fetchFundList() {
+        let response = await tefas_fetch(
+            `${Urls.base_url}${Urls.fund_list_url}`,
+            {
+                method: "POST",
+                headers: header,
+                body: "{}"
+            },
+            this.fetchFundList.name
+        )
+
+        return response?.["data"]
+    }
+
+    /**
+     * Returns the list of all forex currencies used for the website
+     * @route /api/statistics/tefas/getFplDovizList/v2
+     * @returns {JSON} An array containing the currencies
+     */
+    static async fetchForexList() {
+        let response = await tefas_fetch(
+            `${Urls.base_url}${Urls.forex_list_url}`,
+            {
+                method: "POST",
+                headers: header,
+                body: `{"fonKodu":"","dil":"TR"}` // Website actually uses this body
+            },
+            this.fetchForexList.name
+        )
+
+        return response?.["data"]
+    }
+}
+
+// A handy fetch function to deal with errors
+async function tefas_fetch(url, init, func_name) {
+        // Send HTTPS request to API
+        let response = await fetch(url, init)
+
+        // Check for HTTPS errors
+        if(!response.ok) {
+            throw new Error(`TEFAS API Error: HTTPS request for ${func_name} failed with status code ${response.status}!`)
+        }
+
+        let json_res = await response.json()
+        // Check if json body is null or empty
+        if(!json_res || Object.keys(json_res).length === 0) {
+            throw new Error(`TEFAS API Error: API responded with empty body on ${func_name}!`)
+        }
+        // Check for API errors
+        if(json_res?.["errorCode"] != null || json_res?.["errorMessage"] != null) {
+            console.log(json_res)
+            throw new Error(`TEFAS API Error: API returned error ${json_res?.["errorCode"]} on ${func_name}! Error message: ${json_res?.["errorMessage"]}`)
+        }
+
+        return json_res
+}

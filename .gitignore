@@ -141,3 +141,13 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# HTTP/HTTPS Requests for Tests
+*.https
+*.http
+
+# Visual Studio Code
+.vscode/
+
+# JSDocs Configuration File
+jsdocs.json

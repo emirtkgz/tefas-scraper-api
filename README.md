@@ -2,11 +2,18 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/badge/Documentation-8CA1AF?logo=readthedocs&logoColor=fff)](https://emirtkgz.github.io/tefas-scraper-api)
+[![NPM](https://img.shields.io/npm/v/tefas-scraper-api)](https://www.npmjs.com/package/tefas-scraper-api/access)
+
 
 Unofficial Node.js wrapper for TEFAS API
 
 > [!CAUTION]
 > This wrapper is made only for educational purposes. Any malignant use is heavily discouraged. All rights of the API belongs to İstanbul Takas ve Saklama Bankası A.Ş.
+
+# Installation
+```bash
+> npm install tefas-scraper-api
+```
 
 # Usage
 ```js

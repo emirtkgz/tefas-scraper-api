@@ -4,8 +4,6 @@ export const Urls = {
     price_url: "/api/funds/fonFiyatBilgiGetir",
     type_url:  "/api/funds/fonTipiGetir",
     comparisons_url: "/api/funds/fonProfilDtyGetir",
-    fund_list_url: "/api/statistics/tefas/getFplFonList",
-    forex_list_url: "/api/statistics/tefas/getFplDovizList/v2"
 }
 
 export const header = new Headers({

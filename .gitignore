@@ -149,5 +149,5 @@ vite.config.ts.timestamp-*
 # Visual Studio Code
 .vscode/
 
-# JSDocs Configuration File
-jsdocs.json
+# Generated CommonJS files
+*.cjs

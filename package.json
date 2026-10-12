@@ -13,9 +13,17 @@
   "license": "MIT",
   "author": "emirtkgz",
   "type": "module",
-  "main": "index.js",
+  "main": "./tefas/index.cjs",
+  "module": "./tefas/index.js",
+  "exports": {
+    ".": {
+      "import": "./tefas/index.js",
+      "require": "./tefas/index.cjs"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx rollup ./tefas/index.js --file ./tefas/index.cjs --format cjs",
     "generate-docs": "jsdoc -c ./jsdocs.json ./tefas/index.js"
   },
   "devDependencies": {

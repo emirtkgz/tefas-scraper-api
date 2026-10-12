@@ -1,0 +1,21 @@
+# Node Modules
+node_modules/
+
+# Test files
+tests/
+
+# Docs
+docs/
+
+# HTTP/HTTPS Requests for Tests
+*.https
+*.http
+
+# Visual Studio Code
+.vscode/
+
+# Gitignore
+.gitignore
+
+# Configs
+jsdocs.json

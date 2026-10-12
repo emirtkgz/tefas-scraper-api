@@ -1,4 +1,6 @@
-import { Tefas } from "../tefas/index.js";
+import { Tefas } from "tefas-scraper-api";
 
-var tefas = new Tefas("TLY")
-console.log(await tefas.fetchPrice(12))
+var tefas = new Tefas("ZBJ");
+var res = await tefas.fetchPrice(12);
+
+console.log(res);

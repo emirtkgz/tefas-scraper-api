@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Documentation](https://img.shields.io/badge/Documentation-8CA1AF?logo=readthedocs&logoColor=fff)](https://emirtkgz.github.io/tefas-scraper-api)
-[![NPM](https://img.shields.io/npm/v/tefas-scraper-api)](https://www.npmjs.com/package/tefas-scraper-api/access)
+[![NPM](https://img.shields.io/npm/v/tefas-scraper-api)](https://www.npmjs.com/package/tefas-scraper-api)
 
 
 Unofficial Node.js wrapper for TEFAS API
@@ -17,8 +17,10 @@ Unofficial Node.js wrapper for TEFAS API
 
 # Usage
 ```js
-import { Tefas } from "../tefas/index.js";
+import { Tefas } from "tefas-scraper-api";
 
-var tefas = new Tefas("TLY")
-console.log(await tefas.fetchPrice())
+var tefas = new Tefas("ZBJ");
+var res = await tefas.fetchPrice(12);
+
+console.log(res);
 ``` 

@@ -2,7 +2,7 @@
 node_modules/
 
 # Test files
-tests/
+test/
 
 # Docs
 docs/

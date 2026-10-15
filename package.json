@@ -1,6 +1,6 @@
 {
   "name": "tefas-scraper-api",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Unofficial Node.js wrapper for TEFAS API ",
   "homepage": "https://github.com/emirtkgz/tefas-scraper-api#readme",
   "bugs": {

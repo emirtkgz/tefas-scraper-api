@@ -1,9 +1,15 @@
 export const Urls = {
     base_url: "https://www.tefas.gov.tr",
 
-    price_url: "/api/funds/fonFiyatBilgiGetir",
-    type_url:  "/api/funds/fonTipiGetir",
-    comparisons_url: "/api/funds/fonProfilDtyGetir",
+    // "Funds" API Point
+    price_url:              "/api/funds/fonFiyatBilgiGetir",
+    type_url:               "/api/funds/fonTipiGetir",
+    comparisons_url:        "/api/funds/fonProfilDtyGetir",
+    return_based_info_url:  "/api/funds/fonGetiriBazliBilgiGetir",
+
+    // "Statistics" API Point
+    fund_list_url:          "/api/statistics/tefas/getFplFonList",
+    forex_list_url:         "/api/statistics/tefas/getFplDovizList/v2",
 }
 
 export const header = new Headers({

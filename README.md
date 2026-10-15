@@ -20,7 +20,7 @@ Unofficial Node.js wrapper for TEFAS API
 import { Tefas } from "tefas-scraper-api";
 
 var tefas = new Tefas("ZBJ");
-var res = await tefas.fetchPrice(12);
+var res = await tefas.funds.fetchPrice(12);
 
 console.log(res);
 ``` 

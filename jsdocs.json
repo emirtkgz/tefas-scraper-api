@@ -2,6 +2,7 @@
     "plugins": [],
     "recurseDepth": 10,
     "source": {
+        "include": ["tefas/"],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
